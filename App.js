@@ -5,29 +5,24 @@ import { GoalInput } from './components/GoalInput';
 
 export default function App() {
 
-  const [enteredGoalText, setEnteredGoalText] = useState('');
   const [courseGoals, setCousreGoals] = useState([]);
 
-function goalInputHandler(enteredText) {
-  setEnteredGoalText(enteredText)
-}
 
+  function addGoalHandler(enteredGoalText) {
+    setCousreGoals((currentCourseGoals) => [...currentCourseGoals,
+    { text: enteredGoalText, key: Math.random.toString() }])
+    console.log(enteredGoalText)
+  }
 
-function addGoalHandler() {
-  setCousreGoals((currentCourseGoals) => [...currentCourseGoals, 
-    {text: enteredGoalText, key: Math.random.toString()}])
-  console.log(enteredGoalText)
-}
-  
   return (
     <View style={styles.container}>
-      <GoalInput goalInputHandler={goalInputHandler} addGoalHandler={addGoalHandler}/>
+      <GoalInput addGoalHandler={addGoalHandler} />
       <View style={styles.goalsContainer}>
-        <FlatList 
-          data={courseGoals} 
+        <FlatList
+          data={courseGoals}
           renderItem={(item) => {
-            return (<GoalItem text={item.item.text}/>);
-        }}/>
+            return (<GoalItem text={item.item.text} />);
+          }} />
       </View>
     </View>
   );
@@ -57,5 +52,5 @@ const styles = StyleSheet.create({
   goalsContainer: {
     flex: 8
   },
-  
+
 });

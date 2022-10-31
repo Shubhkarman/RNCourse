@@ -9,9 +9,26 @@ export default function App() {
 
 
   function addGoalHandler(enteredGoalText) {
-    setCousreGoals((currentCourseGoals) => [...currentCourseGoals,
-    { text: enteredGoalText, key: Math.random.toString() }])
-    console.log(enteredGoalText)
+    const newCourseGoal = { text: enteredGoalText, key: Math.random().toString() };
+    setCousreGoals((currentCourseGoals) => [...currentCourseGoals, newCourseGoal])
+    console.log(newCourseGoal)
+  }
+
+
+  function deleteItem(id) {
+    console.log(id)
+    console.log("0.26394514615292675" !== id)
+    setCousreGoals(courseGoals => {
+      return courseGoals.filter((goal) => {
+        console.log(goal)
+        const cond = goal.key !== id;
+        console.log(cond)
+        return cond;
+
+      })
+    }
+
+    )
   }
 
   return (
@@ -21,7 +38,7 @@ export default function App() {
         <FlatList
           data={courseGoals}
           renderItem={(item) => {
-            return (<GoalItem text={item.item.text} />);
+            return (<GoalItem text={item.item.text} deleteFunc={deleteItem} id={item.item.key} />);
           }} />
       </View>
     </View>

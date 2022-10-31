@@ -6,12 +6,20 @@ import { GoalInput } from './components/GoalInput';
 export default function App() {
 
   const [courseGoals, setCousreGoals] = useState([]);
-
+  const [isModalVisible, setModalValue] = useState(false);
 
   function addGoalHandler(enteredGoalText) {
     const newCourseGoal = { text: enteredGoalText, key: Math.random().toString() };
     setCousreGoals((currentCourseGoals) => [...currentCourseGoals, newCourseGoal])
     console.log(newCourseGoal)
+  }
+
+  function makeModalVisible(){
+    setModalValue(true);
+  }
+
+  function makeModalInVisible(){
+    setModalValue(false);
   }
 
 
@@ -26,14 +34,13 @@ export default function App() {
         return cond;
 
       })
-    }
-
-    )
+    })
   }
 
   return (
     <View style={styles.container}>
-      <GoalInput addGoalHandler={addGoalHandler} />
+      <Button title='Add new goal' onPress={makeModalVisible}/>
+      <GoalInput addGoalHandler={addGoalHandler} makeModalInVisible={makeModalInVisible} isModalVisible={isModalVisible} />
       <View style={styles.goalsContainer}>
         <FlatList
           data={courseGoals}
